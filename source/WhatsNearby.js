@@ -18,6 +18,10 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ENHANCED: 2/11/2016 modified to include name filter, allowing use as a store finder 
+- Bob Lennes, Visual Solutions Inc.
+
 */
 
 /*
@@ -57,33 +61,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         },
 
         options:{
-            "address": "",
-            "lat": 45.509234,
-            "lng": -73.559067,
-            "width": 500,
-            "height": 500,
-            "zoom":8,
-            "mapType": google.maps.MapTypeId.ROADMAP,
-            "placeMainMarker": true,
-            "mainMarkerIcon": "",
-            "markers": [],
-            "placesTypes": [],
-            "placesTypesIcon": [],
-            "excludePlacesTypes": [],
-            "excludeByKeywords": [],
-            "placesRadius": 500,
-            "disableDefaultUI": false,
-            "style": [],
-            "draggable":true,
-            "scrollwheel":true,
-            "backgroundColor": "#000000",
-            "markercluster": false, // requires markercluster.js
-            "markerclusterStyles": [], // requires markercluster.js
-            "markerclusterOptions": {},
-            "centerOffsetX": 0,
-            "centerOffsetY": 0,
-            "useInfoBox": false,
-            "infoBoxOptions": {}
+			"address": "",
+			"lat": 42.3476,
+			"lng": -88.0234,
+			"width": 500,
+			"height": 400,
+			"zoom":10,
+			"mapType": google.maps.MapTypeId.ROADMAP,
+			"placeMainMarker": true,
+			"mainMarkerIcon": "",
+			"placesTypes": [],
+			"placesName": [],
+			"placesTypesIcon": [],
+			"excludePlacesTypes": [],
+			"excludeByKeywords": [],
+			"placesRadius": 1000,
+			"disableDefaultUI": false,
+			"style": [],
+			"scrollwheel":true,
+			"backgroundColor": "#eeeeee"
         },
 
         _markup: "<div class='infowindow-markup'><strong>{{name}}</strong>{{vicinity}}</div>",
@@ -312,6 +308,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             req.location = new google.maps.LatLng(lat, lng);
             req.radius = this.options.placesRadius;
             req.types = this.options.placesTypes;
+			if (this.options.placesTypes)
+			req.types = this.options.placesTypes;
+			if (this.options.placesNames)
+			req.name = this.options.placesNames;
 
             this.infoWindow = new google.maps.InfoWindow();
 
@@ -484,9 +484,3 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         }
     }
 })(jQuery);
-
-
-
-
-
-
